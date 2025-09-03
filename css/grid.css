@@ -1,0 +1,179 @@
+.container {
+  position: relative;
+  height: 400vh;
+  view-timeline: --vt;
+}
+
+.images-grid {
+  position: sticky;
+  top: 0;
+  left: 0;
+  display: grid;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.scroll-warning-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  justify-items: center;
+  animation: warning-scroll linear both;
+  animation-timeline: --vt;
+  animation-range: 20% 35%;
+}
+
+.container-large-image {
+  display: none;
+  position: absolute;
+  transition: opacity 0.5s ease;
+  background-color: transparent;
+}
+
+.container-large-image.active {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  backdrop-filter: blur(25px);
+}
+
+.scroll-warning-container p {
+  font-size: 3rem;
+  z-index: 5;
+  text-align: center;
+}
+
+.image-container {
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--position);
+  cursor: pointer;
+  pointer-events: none;
+  animation: fade-move var(--cb) both;
+  animation-timeline: --vt;
+  animation-range: var(--range);
+}
+
+.container-large-image img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  max-width: 700px;
+  transform: translateX(-50%) translateY(-50%) scale(1.2);
+}
+
+.large-image {
+  width: 100%;
+  object-fit: contain;
+  position: relative;
+  pointer-events: none;
+}
+
+.image-1 {
+  --x: 0;
+  --y: var(--positivePx);
+  --range: 40% 60%;
+  --position: 60% 100%;
+}
+
+.image-2 {
+  --x: var(--negativePx);
+  --y: 0;
+  --range: 30% 60%;
+  --position: 0% 45%;
+}
+
+.image-3 {
+  --x: var(--positivePx);
+  --y: 0;
+  --range: 60% 80%;
+  --position: 10% 0%;
+}
+
+.image-4 {
+  --x: var(--negativePx);
+  --y: 0px;
+  --range: 50% 80%;
+  --position: 50% 0%;
+}
+
+.image-5 {
+  --x: 0;
+  --y: var(--positivePx);
+  --range: 20% 50%;
+  --position: 50% 50%;
+}
+
+.image-6 {
+  --x: 0px;
+  --y: var(--negativePx);
+  --range: 30% 70%;
+  --position: 50% 50%;
+}
+
+@keyframes warning-scroll {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    scale: var(--scaleStart);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(var(--negativePx));
+    scale: var(--scaleEnd);
+  }
+}
+
+@keyframes fade-move {
+  from {
+    opacity: 0;
+    transform: translate(var(--x, 0), var(--y, 30px));
+    filter: hue-rotate(0) blur(5px);
+    pointer-events: none;
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+    filter: hue-rotate(1turn) blur(0);
+    pointer-events: all;
+  }
+}
+
+::view-transition-image-pair(image) {
+  overflow: hidden;
+}
+
+::view-transition-old(image) {
+  height: 100%;
+  animation: none;
+}
+
+::view-transition-new(image) {
+  height: 100%;
+  width: 100%;
+  mix-blend-mode: normal;
+  animation: none;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion) {
+  .container {
+    height: 100vh;
+  }
+
+  .image-container img {
+    animation: none;
+  }
+}

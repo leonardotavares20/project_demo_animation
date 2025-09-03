@@ -1,0 +1,90 @@
+.horizontal-container {
+  position: relative;
+  height: 400vh;
+  view-timeline: --team-view;
+}
+
+.horizontal-inner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-x: hidden;
+  animation: linear both teamBg;
+  animation-timeline: --team-view;
+  animation-range: contain;
+}
+
+.horizontal-grid {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  width: 180vw;
+  align-items: center;
+  animation: linear both moveTeamGrid;
+  animation-timeline: --team-view;
+  animation-range: contain;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
+  padding: 20px 30px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.card {
+  height: 100%;
+  align-content: center;
+  border-radius: 10px;
+}
+
+.card img {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+  aspect-ratio: 1;
+  margin-bottom: 20px;
+  outline: 1px solid var(--green);
+  outline-offset: 3px;
+  animation-timeline: --team-view;
+  animation-range: contain;
+}
+
+@keyframes moveTeamGrid {
+  to {
+    transform: translateX(calc(-100% + 100vw));
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .horizontal-container {
+    margin-top: 4rem;
+  }
+
+  .horizontal-grid {
+    animation: none;
+    width: 100vw;
+  }
+
+  .horizontal-container {
+    height: 100%;
+  }
+
+  .horizontal-inner {
+    height: 100%;
+  }
+
+  .grid {
+    width: 100vw;
+    padding: 0;
+    height: 100vh;
+    gap: 20px;
+  }
+
+  .card img {
+    height: 100%;
+  }
+}
